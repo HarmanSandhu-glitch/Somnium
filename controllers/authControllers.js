@@ -19,7 +19,7 @@ function restrictTo(role) {
         console.log("checking user restriction type", role);
         try {
             const user = await authenticate(req, res);
-            if (!res.headersSent && user.role !== role) {
+            if (!res.headersSent && role != null && user.role !== role) {
                 return res.status(403).json({ error: 'Unauthorized' });
             }
             req.user = user;
@@ -80,6 +80,6 @@ export const isAdmin = restrictTo('admin');
 export const isOrganisor = restrictTo('organisor');
 export const isLoggedIn = function (req, res, next) {
     console.log("checking if user is logged in");
-    return restrictTo('user')(req, res, next);
+    return restrictTo(null)(req, res, next);
 };
 export { login, signup };

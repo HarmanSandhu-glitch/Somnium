@@ -7,7 +7,7 @@ import { dashboard } from '../controllers/userDashboard.js';
 const userRouter = express.Router();
 
 // Protected routes
-// userRouter.use(isLoggedIn);
+userRouter.use(isLoggedIn);
 userRouter.get('/dashboard', dashboard); // Fixed middleware usage
 userRouter.get('/purchasedTickets', purchasedTickets); // Fixed typo and middleware
 userRouter.use(isAdmin || isOrganisor);
