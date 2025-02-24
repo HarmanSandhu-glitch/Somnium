@@ -1,6 +1,6 @@
 import userModel from '../models/userModel.js';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
 
 // Base authentication middleware
 async function authenticate(req, res) {
@@ -39,7 +39,7 @@ async function login(req, res) {
             return res.status(400).json({ error: 'Email and password required' });
         }
         const user = await userModel.findOne({ email });
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = (password == user.password);
         if (!isMatch) {
             return res.status(400).json({ error: 'Invalid credentials' });
         }

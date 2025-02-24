@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import emailValidator from "email-validator";
-import bcrypt from "bcrypt";
+// import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -51,14 +51,14 @@ userSchema.pre('save', function (next) {
     this.confirmPassword = undefined;
     next();
 });
-userSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) return next();
-    this.password = await bcrypt.hash(this.password, 12);
-    next();
-});
-userSchema.methods.checkPassword = async function (password) {
-    return await bcrypt.compare(password, this.password);
-}
+// userSchema.pre('save', async function (next) {
+//     if (!this.isModified('password')) return next();
+//     this.password = await bcrypt.hash(this.password, 12);
+//     next();
+// });
+// userSchema.methods.checkPassword = async function (password) {
+//     return await bcrypt.compare(password, this.password);
+// }
 
 userSchema.methods.setResetToken = function () {
     const resetToken = crypto.randomBytes(32).toString('hex');
